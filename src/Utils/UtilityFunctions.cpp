@@ -77,3 +77,14 @@ double INTELLI::UtilityFunctions::genrand_real3() {
 std::shared_ptr<std::barrier<>> INTELLI::UtilityFunctions::createBarrier(int count) {
   return std::make_shared<std::barrier<>>(count);
 }
+
+size_t INTELLI::UtilityFunctions::timeLastUs(struct timeval ts) {
+  struct timeval te;
+  gettimeofday(&te, NULL);
+  int64_t s0, e0, s1, e1;
+  s0 = ts.tv_sec;
+  s1 = ts.tv_usec;
+  e0 = te.tv_sec;
+  e1 = te.tv_usec;
+  return 1000000 * (e0 - s0) + (e1 - s1);
+}

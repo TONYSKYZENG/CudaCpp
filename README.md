@@ -1,16 +1,18 @@
 # ModernCPlusProjectTemplate [![CMake](https://github.com/intellistream/ModernCPlusProjectTemplate/actions/workflows/cmake.yml/badge.svg?branch=main)](https://github.com/intellistream/ModernCPlusProjectTemplate/actions/workflows/cmake.yml)
 
-Template for C++ 20 project; using CMAKE to manage
+Template for C++ 20 project; using CMAKE to manage; Enable cuda at c++11
 
 ## Requires G++11
+# for ubuntu22.04 onwards, use the default gcc/g++ is ENOUGH!!
+Otherwise, follow these instructions
 ```shell
-sudo add-apt-repository 'deb http://mirrors.kernel.org/ubuntu hirsute main universe'
+sudo add-apt-repository 'deb http://mirrors.kernel.org/ubuntu jammy main universe'
 sudo apt-get update"
 sudo apt install gcc-11 g++-11"
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 11
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 11
 ```
-
+# warning: don't run apt-get upgrade after you add the jammy source to an older version, it may destroy your older distribution!!!
 ## Requires Log4cxx
 ```shell
 sudo apt-get install -y liblog4cxx-dev

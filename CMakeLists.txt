@@ -1,8 +1,8 @@
 # Copyright (C) 2021 by the INTELLI team (https://github.com/intellistream)
 
 cmake_minimum_required(VERSION 3.14)
-project(IntelliStream CXX)
-
+project(IntelliStream CXX CUDA)
+enable_language(CUDA)
 # Judge the os system
 
 if (UNIX AND NOT APPLE)
@@ -18,6 +18,11 @@ include(cmake/default.cmake)
 # C++ Standard
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# You must set this lines of cuda std and default gpu
+set(CMAKE_CUDA_STANDARD 11)
+set(CMAKE_CUDA_ARCHITECTURES 87)
+
+
 #gcc 10 g++10
 message(STATUS "sudo add-apt-repository 'deb http://mirrors.kernel.org/ubuntu hirsute main universe'")
 message(STATUS "sudo apt-get update")
@@ -92,7 +97,7 @@ add_subdirectory(src)
 # Add Library
 get_sources(IntelliStream_SOURCE_FILES)
 get_headers(IntelliStream_HEADER_FILES)
-add_library(IntelliStream SHARED ${IntelliStream_SOURCE_FILES} ${IntelliStream_HEADER_FILES} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+add_library(IntelliStream SHARED ${IntelliStream_SOURCE_FILES} ${IntelliStream_HEADER_FILES} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR} src/cuda/vecAdd.cu)
 target_include_directories(IntelliStream PUBLIC "include")
 target_include_directories(IntelliStream PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 target_link_libraries(IntelliStream PUBLIC ${LIBRARIES})

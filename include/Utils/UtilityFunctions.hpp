@@ -14,7 +14,7 @@
 #define LOWER_MASK 0x7fffffffUL /* least significant r bits */
 #define TRUE 1
 #define FALSE 0
-
+#include <sys/time.h>
 namespace INTELLI {
 typedef std::shared_ptr<std::barrier<>> BarrierPtr;
 
@@ -27,6 +27,7 @@ class UtilityFunctions {
   static long genrand_int31(void);
   static unsigned long genrand_int32(void);
   static std::shared_ptr<std::barrier<>> createBarrier(int count);
+  static size_t timeLastUs(struct timeval past);
 };
 }
 #endif //IntelliStream_SRC_UTILS_UTILITYFUNCTIONS_HPP_

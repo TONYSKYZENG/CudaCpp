@@ -1,0 +1,4 @@
+<map id="DIVERSE_METER::JetsonAGXMeter" name="DIVERSE_METER::JetsonAGXMeter">
+<area shape="rect" id="node1" title="The entity of embeded energy meter in jetson agx platform." alt="" coords="5,80,249,107"/>
+<area shape="rect" id="node2" href="$classDIVERSE__METER_1_1AbstractMeter.html" title="The entity of an abstract power meter, providing all basic function of energy measurement." alt="" coords="12,5,243,32"/>
+</map>

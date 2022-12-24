@@ -20,7 +20,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # You must set this lines of cuda std and default gpu
 set(CMAKE_CUDA_STANDARD 11)
-set(CMAKE_CUDA_ARCHITECTURES 87)
+#set(CMAKE_CUDA_ARCHITECTURES 86)
 
 
 #gcc 10 g++10
@@ -63,7 +63,7 @@ else (LOG4CXX_FOUND)
     message(STATUS "sudo apt-get install -y liblog4cxx-dev")
 endif (LOG4CXX_FOUND)
 
-option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
+option(ENABLE_UNIT_TESTS "Enable unit tests" OFF)
 message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 
 if (ENABLE_UNIT_TESTS)
@@ -97,7 +97,7 @@ add_subdirectory(src)
 # Add Library
 get_sources(IntelliStream_SOURCE_FILES)
 get_headers(IntelliStream_HEADER_FILES)
-add_library(IntelliStream SHARED ${IntelliStream_SOURCE_FILES} ${IntelliStream_HEADER_FILES} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR} src/cuda/vecAdd.cu)
+add_library(IntelliStream SHARED ${IntelliStream_SOURCE_FILES} ${IntelliStream_HEADER_FILES} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 target_include_directories(IntelliStream PUBLIC "include")
 target_include_directories(IntelliStream PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 target_link_libraries(IntelliStream PUBLIC ${LIBRARIES})
@@ -106,7 +106,7 @@ target_link_libraries(IntelliStream PUBLIC ${LIBRARIES})
 add_subdirectory(benchmark)
 
 #Add tests (based on GTest suits)
-add_subdirectory(test)
+#add_subdirectory(test)
 
 install(DIRECTORY "include" DESTINATION "/IntelliStream" COMPONENT IntelliStream)
 

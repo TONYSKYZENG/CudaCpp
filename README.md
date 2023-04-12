@@ -17,7 +17,8 @@ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 11
 ```shell
 sudo apt-get install -y liblog4cxx-dev
 ```
-
+## CUDACXX
+Make sure you have set up CUDACXX environment. If not, try `export CUDACXX= xxx' before cmake, the xxx is usually /usr/local/cuda/bin/nvcc, but depends on your installation.
 ## Code Structure
 - benchmark -- application code to use the generated shared library
 - cmake -- cmake configuration files

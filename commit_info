@@ -1,1 +1,1 @@
-1. Add experimental features,i.e., try the meter in jetson agx.
+1. fix bugs with cmake 3.25+

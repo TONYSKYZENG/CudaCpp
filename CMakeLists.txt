@@ -21,7 +21,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # You must set this lines of cuda std and default gpu
 set(CMAKE_CUDA_STANDARD 11)
 #set(CMAKE_CUDA_ARCHITECTURES 86)
-
+set(CMAKE_CUDA_ARCHITECTURES "native")
 
 #gcc 10 g++10
 message(STATUS "sudo add-apt-repository 'deb http://mirrors.kernel.org/ubuntu hirsute main universe'")

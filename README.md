@@ -19,6 +19,8 @@ sudo apt-get install -y liblog4cxx-dev
 ```
 ## CUDACXX
 Make sure you have set up CUDACXX environment. If not, try `export CUDACXX= xxx' before cmake, the xxx is usually /usr/local/cuda/bin/nvcc, but depends on your installation.
+## Cmake bugs
+If you see 'Failed to detect a default CUDA architecture', please use "cmake -DCMAKE_CUDA_ARCHITECTURES="native" " instead of "cmake", where CMAKE_CUDA_ARCHITECTURES is the extra parameters and should be "native"
 ## Code Structure
 - benchmark -- application code to use the generated shared library
 - cmake -- cmake configuration files

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <cuda_runtime.h>
 __global__ void vecAdd_core(float *a, float *b, float *c, int n,int intensity)
 {
   // Get our global thread ID
@@ -54,6 +55,41 @@ float *d_c;
 
   // Copy array back to host
   cudaMemcpy( h_c, d_c, bytes, cudaMemcpyDeviceToHost );
+  // Release device memory
+  cudaFree(d_a);
+  cudaFree(d_b);
+  cudaFree(d_c);
+}
+void vecAddUniform(float *h_a, float *h_b, float *h_c, int n, int intensity){
+// Device input vectors
+float *d_a;
+float *d_b;
+//Device output vector
+float *d_c;
+  // Size, in bytes, of each vector
+  size_t bytes = n*sizeof(float);
+
+  // Allocate memory for each vector on GPU
+  cudaMallocManaged(&d_a, bytes);
+  cudaMallocManaged(&d_b, bytes);
+  cudaMallocManaged(&d_c, bytes);
+  // Copy host vectors to device
+  cudaMemcpy( d_a, h_a, bytes, cudaMemcpyHostToHost);
+  cudaMemcpy( d_b, h_b, bytes, cudaMemcpyHostToHost);
+
+  int blockSize, gridSize;
+
+  // Number of threads in each thread block
+  blockSize = 32;
+
+  // Number of thread blocks in grid
+  gridSize = (int)ceil((float)n/blockSize);
+
+  // Execute the kernel
+  vecAdd_core<<<gridSize, blockSize>>>(d_a, d_b, d_c, n,intensity);
+  cudaDeviceSynchronize();
+  // Copy array back to host
+  cudaMemcpy( h_c, d_c, bytes, cudaMemcpyHostToHost );
   // Release device memory
   cudaFree(d_a);
   cudaFree(d_b);

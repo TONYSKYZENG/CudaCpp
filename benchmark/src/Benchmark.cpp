@@ -11,6 +11,7 @@
 using namespace std;
 using namespace INTELLI;
  void vecAdd(float *h_a, float *h_b, float *h_c, int n,int intensity);
+ void vecAddUniform(float *h_a, float *h_b, float *h_c, int n,int intensity);
 void vecAdd_cpu(float *a, float *b, float *c, int n,int intensity)
 {
    for(int id=0;id<n;id++)
@@ -61,8 +62,8 @@ int main(int argc, char **argv) {
   std::vector<float>b=md.genRandInt<float>(len,10000,0);
   std::vector<float>c=md.genRandInt<float>(len,10000,0);
   float *h_a=a.data();
-  float *h_b=a.data();
-  float *h_c=a.data();
+  float *h_b=b.data();
+  float *h_c=c.data();
   struct timeval timeBase;
   gettimeofday(&timeBase,NULL);
  // jm.startMeter();
@@ -75,7 +76,9 @@ int main(int argc, char **argv) {
     printf("%lf,",h_c[i]);
   }*/
   cout<<"CPU run ="+ to_string(tEnd)+" us\r\n";
+   
   gettimeofday(&timeBase,NULL);
+
   //jm.startMeter();
   vecAdd(h_a,h_b,h_c,a.size(),intensity);
 
@@ -83,6 +86,19 @@ int main(int argc, char **argv) {
 //  jm.stopMeter();
   //cout<<"gpu peak power="+ to_string(jm.getPeak())+"W, gpu energy="+ to_string(jm.getE())+"J\r\n";
   cout<<"GPU run ="+ to_string(tEnd)+" us\r\n";
+
+  gettimeofday(&timeBase,NULL);
+  //jm.startMeter();
+  vecAddUniform(h_a,h_b,h_c,a.size(),intensity);
+
+  tEnd=UtilityFunctions::timeLastUs(timeBase);
+//  jm.stopMeter();
+  //cout<<"gpu peak power="+ to_string(jm.getPeak())+"W, gpu energy="+ to_string(jm.getE())+"J\r\n";
+  cout<<"GPU (uniform) run ="+ to_string(tEnd)+" us\r\n";
+   for(int i=0;i<6;i++)
+  {
+    printf("f(%f,%f)=%f\r\n",h_a[i],h_b[i],h_c[i]);
+  }
   //Run the test here.
  // INTELLI_INFO("test meter..." << argc << argv);
   //testMeter();
